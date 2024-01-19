@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link rel="stylesheet" href="css/sample.css">
+<title>クイズ練習（６個）</title>
+</head>
+<body>
+
+<header>
+<h1 id="questionNumber">クイズ1</h1>
+<h1 id="totalScore">トータルスコア: 0</h1>
+</header>
+
+<main>
+<p id="quest">ここに問題が出題されます</p>
+<p>
+<input type="radio" name="toi" id="choice1" value="1"><label for="choice1" id="n1">選択肢1</label>
+<input type="radio" name="toi" id="choice2" value="2"><label for="choice2" id="n2">選択肢2</label>
+<input type="radio" name="toi" id="choice3" value="3"><label for="choice3" id="n3">選択肢3</label>
+</p>
+<p id="result"></p>
+</main>
+
+<footer>フッター</footer>
+<script>
+var quizData = [
+  {
+    question: '質問1:「ドラゴンボール」の主人公は誰ですか？',
+    choices: ['孫悟空', 'ベジータ', 'ピッコロ'],
+    correctAnswer: '1'
+  },
+  {
+    question: '質問2:「ハリー・ポッター」シリーズの作中で最も悪名高い悪役は誰ですか？',
+    choices: ['シリウス・ブラック', 'ドラコ・マルフォイ', 'ヴォルデモート'],
+    correctAnswer: '3'
+  },
+  {
+    question: '質問3:「スーパーマリオ」シリーズのプリンセスは誰ですか？',
+    choices: ['ピーチ姫', 'デイジー姫', 'ロゼッタ姫'],
+    correctAnswer: '1'
+  },
+  {
+    question: '質問4:「ポケモン」シリーズで最初に選べる3匹のポケモンは何ですか？',
+    choices: ['フシギダネ、ヒトカゲ、ゼニガメ', 'ピカチュウ、イーブイ、ミミッキュ', 'ガブリアス、リオル、ボルトロス'],
+    correctAnswer: '1'
+  },
+  {
+    question: '質問5:「スター・ウォーズ」シリーズでダース・ヴェイダーの本名は何ですか？',
+    choices: ['アナキン・スカイウォーカー', 'ルーク・スカイウォーカー', 'オビ＝ワン・ケノービ'],
+    correctAnswer: '1'
+  },
+  {
+    question: '質問6:「ドラえもん」のポケットから出てくる猫型ロボットの名前は何ですか？',
+    choices: ['しずかちゃん', 'のび太', 'ドラミ'],
+    correctAnswer: '3'
+  }
+];
+
+
+
+var currentQuestionIndex = 0;
+var totalScore = 0;
+
+function displayQuestion() {
+var currentQuestion = quizData[currentQuestionIndex];
+document.getElementById('quest').innerHTML = currentQuestion.question;
+document.getElementById('n1').innerHTML = currentQuestion.choices[0];
+document.getElementById('n2').innerHTML = currentQuestion.choices[1];
+document.getElementById('n3').innerHTML = currentQuestion.choices[2];
+document.getElementById('result').innerHTML = '';
+document.getElementById('questionNumber').innerHTML = 'クイズ' + (currentQuestionIndex + 1);
+}
+
+document.querySelectorAll('input[name="toi"]').forEach(function(radio) {
+radio.addEventListener('click', function() {
+var selectedValue = this.value;
+
+if (selectedValue === quizData[currentQuestionIndex].correctAnswer) {
+document.getElementById('result').innerHTML = '正解！';
+totalScore++;
+} else {
+document.getElementById('result').innerHTML = '不正解…';
+}
+
+currentQuestionIndex++;
+
+if (currentQuestionIndex < quizData.length) {
+displayQuestion();
+} else {
+// クイズ終了
+alert('終了！\n正解の数: ' + totalScore);
+document.getElementById('questionNumber').innerHTML = '終了!!!';
+document.getElementById('totalScore').innerHTML = 'トータルスコア: ' + totalScore;
+}
+});
+});
+
+displayQuestion();
+</script>
+</body>
+</html>

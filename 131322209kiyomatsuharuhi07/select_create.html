@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>セレクトボックスを関数化！！</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+<h1>セレクトボックスを関数化！！</h1>
+
+
+
+<!-- セレクトボックス作成[START] -->
+<select id="year"></select>
+<select id="month"></select>
+<select id="date"></select>
+<!-- セレクトボックス作成[END] -->
+
+
+
+
+<script>
+function ymb(start,end,id){
+
+let y = ""; 
+for(let i=start; i<end; i++){
+    y += '<option value="'+i+'">'+i+'</option>';
+}
+$(id).html(y);
+}
+ymb(1900,2025,"#year");
+ymb(1,12,"#month");
+ymb(1,31,"#date");
+
+</script>
+</body>
+</html>
