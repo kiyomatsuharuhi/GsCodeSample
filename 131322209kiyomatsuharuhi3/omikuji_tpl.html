@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <link rel="stylesheet" href="css/sample.css">
+  <title>おみくじ</title>
+  <style>
+    #echo {
+      color: #205dce;
+    }
+
+    @keyframes sparkle {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0;
+      }
+      100% {
+        transform: translateY(-100px) rotate(360deg);
+        opacity: 1;
+      }
+    }
+
+    .sparkle {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background-color: transparent;
+      border-radius: 50%;
+      animation: sparkle 1s linear infinite;
+    }
+
+    .sparkle::after {
+      content: "♡";
+      font-size: 60px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      color: rgb(238, 9, 188); /* キラキラの色を指定 */
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1 style="color: rgb(110, 54, 177);">♡♡♡♡♡おみくじ♡♡♡♡♡</h1>
+</header>
+
+<main>
+  <ul>
+    <li id="pull">おみくじを引く</li>
+  </ul>
+  <p id="echo"></p>
+</main>
+
+<footer>いいことがありますように✨</footer>
+
+<script>
+  //Click
+  const pull = document.querySelector("#pull");
+  const echoElement = document.querySelector("#echo");
+
+  pull.onclick = function () {
+    //乱数
+    const num = Math.ceil(Math.random() * 5);
+
+    let resultText = "";
+
+    if (num == 1) {
+      resultText = "大吉♡♡♡♡♡";
+    } else if (num == 2) {
+      resultText = "中吉♡♡♡♡";
+    } else if (num == 3) {
+      resultText = "小吉♡♡♡";
+    } else if (num == 4) {
+      resultText = "吉♡♡";
+    } else if (num == 5) {
+      resultText = "凶😭";
+    }
+
+    echoElement.innerHTML = `今日の運勢は・・・<strong>${resultText}</strong>`;
+
+    // キラキラを降らせる
+    createSparkles();
+  }
+
+  function createSparkles() {
+    const sparklesContainer = document.createElement('div');
+    sparklesContainer.style.position = 'fixed';
+    sparklesContainer.style.width = '100%';
+    sparklesContainer.style.height = '100%';
+    document.body.appendChild(sparklesContainer);
+
+    for (let i = 0; i < 20; i++) {
+      const sparkle = document.createElement('div');
+      sparkle.classList.add('sparkle');
+      sparkle.style.left = Math.random() * window.innerWidth + 'px';
+      sparkle.style.top = Math.random() * window.innerHeight + 'px';
+      sparklesContainer.appendChild(sparkle);
+    }
+
+    setTimeout(() => {
+      document.body.removeChild(sparklesContainer);
+    }, 1000);
+  }
+</script>
+
+</body>
+</html>
